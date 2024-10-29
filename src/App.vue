@@ -1,20 +1,48 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import QrCode from "./components/QrCode.vue";
 import { addMinutes, format } from "date-fns";
+import { useLocalStorage } from "./composables/localStorage";
 
-const paddingTop = ref("0");
-const size = ref("150");
-const content = ref(format(addMinutes(new Date(), 15), "yyyyMMddHHmmssSSS"));
+const [positionTop, resetPositionTop] = useLocalStorage("positionTop", "0");
+const [size, resetSize] = useLocalStorage("size", "150");
+const [content, resetContent] = useLocalStorage("content", generateCode);
+
+function generateCode() {
+  return format(addMinutes(new Date(), 15), "yyyyMMddHHmmssSSS");
+}
+
+function reset() {
+  resetPositionTop();
+  resetSize();
+  resetContent();
+}
 </script>
 
 <template>
-  <div :style="{ 'text-align': 'center', 'padding-top': `${paddingTop}px` }">
-    <QrCode :content="content" :width="Number(size)" />
-    <div>Padding top: <input type="text" v-model="paddingTop" />px</div>
-    <div>Size: <input type="text" v-model="size" /></div>
-    <div>Content: <input type="text" v-model="content" /></div>
+  <div class="container">
+    <div>
+      <QrCode
+        :content="content"
+        :width="Number(size)"
+        :style="{ position: 'relative', top: `${positionTop}px` }"
+      />
+    </div>
+
+    <div style="padding-bottom: 80px">
+      <div>Position top: <input type="text" v-model="positionTop" /> px</div>
+      <div>Size: <input type="text" v-model="size" /> px</div>
+      <div>Content: <input type="text" v-model="content" /></div>
+      <button @click="reset">Reset</button>
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+</style>
