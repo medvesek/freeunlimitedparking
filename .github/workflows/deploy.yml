@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,7 +35,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
-          user: ${{ secrets.USER }}
+          username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
           source: "dist/*"
           target: "/var/www/freeunlimitedparking/public/"
