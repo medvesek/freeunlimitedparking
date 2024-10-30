@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import QrCode from "./components/QrCode.vue";
-import { addMinutes, format } from "date-fns";
+import { format } from "date-fns";
 import { useLocalStorage } from "./composables/localStorage";
 
 const [positionTop, resetPositionTop] = useLocalStorage("positionTop", "0");
@@ -8,7 +8,7 @@ const [size, resetSize] = useLocalStorage("size", "150");
 const [content, resetContent] = useLocalStorage("content", generateCode);
 
 function generateCode() {
-  return format(addMinutes(new Date(), 15), "yyyyMMddHHmmssSSS");
+  return format(new Date(), "yyyyMMddHHmmssSSS");
 }
 
 function reset() {
