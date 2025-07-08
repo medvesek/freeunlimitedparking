@@ -33,4 +33,4 @@ jobs:
         uses: medvesek/deploy-to-netlify-action@master
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          dir: ./dist
+          dir: dist
