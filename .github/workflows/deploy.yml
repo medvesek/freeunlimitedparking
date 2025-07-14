@@ -30,7 +30,9 @@ jobs:
           pnpm build
 
       - name: Netlify
-        uses: medvesek/deploy-to-netlify-action@master
+        uses: medvesek/github-actions/actions/deploy-static@master
         with:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify_token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          cloudflare_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          domain: freeunlimitedparking.ajmuht.eu
           dir: dist
